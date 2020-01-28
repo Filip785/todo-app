@@ -14,8 +14,8 @@ class App extends React.Component {
 
     this.onDragEndEv = this.onDragEnd.bind(this);
     this.handleAddEv = this.handleAdd.bind(this);
-    this.doneItem = this.done.bind(this);
-    this.removeItem = this.remove.bind(this);
+    this.doneItemEv = this.done.bind(this);
+    this.removeItemEv = this.remove.bind(this);
   }
 
   handleAdd(e) {
@@ -28,14 +28,6 @@ class App extends React.Component {
     }
   }
 
-  reorder(list, startIndex, endIndex) {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-  
-    return result;
-  }
-
   done(id) {
     const data = this.state.data.map(item => item.id === id ? { ...item, isDone: !item.isDone } : item);
 
@@ -46,6 +38,14 @@ class App extends React.Component {
     this.setState({
       data: this.state.data.filter((item, _) => item.id !== id)
     });
+  }
+
+  reorder(list, startIndex, endIndex) {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+  
+    return result;
   }
 
   onDragEnd(result) {
@@ -72,7 +72,7 @@ class App extends React.Component {
       <div className="App">
         <input type="text" placeholder="Enter your task..." onKeyDown={this.handleAddEv} />
         <h1>{count === 0 ? 'No items' : count + ' Todos'}</h1>
-        <DragDropContext className="tasks" onDragEnd={this.onDragEndEv}>
+        <DragDropContext onDragEnd={this.onDragEndEv}>
         <Droppable droppableId="droppable">
           {(provided) => (
             <div
@@ -90,8 +90,8 @@ class App extends React.Component {
                             id={item.id} 
                             content={item.content} 
                             isDone={item.isDone} 
-                            done={this.doneItem} 
-                            remove={this.removeItem} />
+                            done={this.doneItemEv} 
+                            remove={this.removeItemEv} />
                     </div>
                   )}
                 </Draggable>
