@@ -18,7 +18,7 @@ code {
 
 input {
   padding: 0 20px;
-  width: 500px;
+  width: 650px;
   height: 40px;
   font-size: 22px;
 }
@@ -30,7 +30,7 @@ input {
 }
 
 .task {
-  cursor: pointer;
+  
   background: #FFA500;
   width: 700px;
   margin-bottom: 20px;
@@ -68,4 +68,12 @@ input {
 
 .icons {
   display: flex;
+}
+
+.task.is-done {
+  background: red;
+}
+
+.task.is-done h1 {
+  text-decoration: line-through;
 }
